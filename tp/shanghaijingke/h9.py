@@ -28,18 +28,19 @@ def read_balance_data(server_ip, server_port):
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
                 sock.connect((server_ip, server_port))
                 while True:
-                    data = sock.recv(1024).decode('utf-8').strip()
-                    numeric_values = re.findall(r'\b(\d+\.\d+)\b', data)
-                    if numeric_values:
-                        weight = numeric_values[0]
+                    data = sock.recv(1024)
+
+                    print(data)
                         
         except Exception as e:
             logging.error(f"连接到服务器时出错: {str(e)}")
             time.sleep(5)  # 如果连接失败，等待一段时间后重试
 
 def main():
-    server_ip = config.get('Server', 'IP')
-    server_port = int(config.get('Server', 'Port'))
+    # server_ip = config.get('Server', 'IP')
+    # server_port = int(config.get('Server', 'Port'))
+    server_ip = '192.168.1.200'
+    server_port = 2000
     try:
         read_balance_data(server_ip, server_port)
     except Exception as e:
